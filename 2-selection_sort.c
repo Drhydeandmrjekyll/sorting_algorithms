@@ -1,11 +1,10 @@
 #include "sort.h"
 
 /**
- * swap_ints - Swap two integers in an array.
- * @a: First integer to swap.
- * @b: Second integer to swap.
+ * swap_ints - Swaps two integers in an array.
  *
- * Description: Function swaps two integers in array.
+ * @a: Pointer to the first integer to swap.
+ * @b: Pointer to the second integer to swap.
  */
 void swap_ints(int *a, int *b)
 {
@@ -15,37 +14,37 @@ void swap_ints(int *a, int *b)
 }
 
 /**
- * bubble_sort - Sorts array of integers in ascending order using Bubble Sort.
- * @array: Array of integers.
- * @size: The size of array.
+ * selection_sort - Sorts array of integers using Selection Sort algorithm.
  *
- * Description: Function sorts the array using Bubble Sort algorithm and
- *              prints the array after each swap.
+ * @array: Array to be sorted.
+ * @size: Number of elements in @array.
+ *
+ * Description: Uses selection sort algorithm to sort the array.
  */
-void bubble_sort(int *array, size_t size)
+void selection_sort(int *array, size_t size)
 {
 	size_t i, j;
+	int *min;
 
 	if (!array || size < 2)
 		return;
 
 	for (i = 0; i < size - 1; i++)
 	{
-	/* Assume the current element is the smallest (i.e., the "bubble") */
-	int *bubble = array + i;
+		min = array + i;
 
-	/* Find the smallest element in the remaining unsorted part of the array */
-	for (j = i + 1; j < size; j++)
-	{
-		if (array[j] < *bubble)
-			bubble = array + j;
-	}
-
-	/* If the current element is not the smallest, swap them */
-	if (array + i != bubble)
+		/* Find minimum element in the remaining unsorted array */
+		for (j = i + 1; j < size; j++)
 		{
-		swap_ints(array + i, bubble);
-		print_array(array, size);
+			if (array[j] < *min)
+				min = array + j;
+		}
+
+		/* If minimum element is not already at its correct position, swap */
+		if (array + i != min)
+		{
+			swap_ints(array + i, min);
+			print_array(array, size);
 		}
 	}
 }
